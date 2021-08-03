@@ -21,7 +21,7 @@ module.exports = {
     // path: path.join(__dirname, '../dist'),
     // // 打包后生成的文件名
     // filename: 'js/bundle.js'
-    
+
     // 修改输出路径和文件名，[name]是动态的，读取entry的属性
     path: path.join(__dirname, "../dist"),
     filename: "js/[name].bundle.js"
@@ -82,7 +82,28 @@ module.exports = {
       }
     ]
   },
-
+  optimization: {
+    splitChunks: {
+      chunks: "async",
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   // 配置插件
   plugins: [
     // // 自动生成 html 的插件
