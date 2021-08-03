@@ -1,4 +1,4 @@
-import Strview from 'strview';
+import Strview from './strview';
 import './webComponent/main';
 import template1 from './template/template1';
 
@@ -11,10 +11,15 @@ const strview = new Strview({
       age: 1,
       msg: 'Strview'
     },
-    template: template1
+    template: template1,
+    means:()=>{
+      function outTxt() {
+        this.useState().b = 1;
+        this.useState().a = 2;
+      }
+      return{
+        outTxt
+      }
+    }
   });
 
-function outTxt() {
-    strview.useState().b = 1;
-    strview.useState().a = 2;
-}
