@@ -1,8 +1,8 @@
 {
-  "name": "strview",
+  "name": "strview-cli",
   "version": "1.0.0",
   "main": "./src/main.js",
-  "repository": "https://gitee.com/maomincoding/svjs.git",
+  "repository": "https://github.com/maomincoding/strviewCLI.git",
   "author": "maomincoding <17864296568@163.com>",
   "license": "MIT",
   "scripts": {
