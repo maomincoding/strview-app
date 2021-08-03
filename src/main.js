@@ -1,8 +1,9 @@
-import Strview from './strview';
+import { strview, eventListener } from './strview';
 import './webComponent/main';
 import template1 from './template/template1';
+import { use1 } from './methods/index';
 
-const sv = new Strview({
+new strview({
   el: "#app",
   data: {
     a: "Hello",
@@ -14,7 +15,5 @@ const sv = new Strview({
   template: template1
 });
 
-document.querySelector('.color-red').onclick = function () {
-  sv.useState().a = 1;
-  sv.useState().b = 9;
-}
+eventListener('.color-red', 'click', use1);
+
