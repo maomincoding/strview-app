@@ -13,18 +13,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // 配置webpack的配置文件, 需要将配置的对象导出, 给webpack使用
 module.exports = {
   // 入口 entry, 从哪个文件开始打包
-  entry: { index: './src/main.js', methods: './src/methods/index.js' },
-
+  entry:'./src/main.js',
   // 出口 output, 打包到哪里去
   output: {
-    // // 打包输出的目录 (输出的目录必须是一个绝对路径)
-    // path: path.join(__dirname, '../dist'),
-    // // 打包后生成的文件名
-    // filename: 'js/bundle.js'
-
-    // 修改输出路径和文件名，[name]是动态的，读取entry的属性
-    path: path.join(__dirname, "../dist"),
-    filename: "js/[name].bundle.js"
+    // 打包输出的目录 (输出的目录必须是一个绝对路径)
+    path: path.join(__dirname, '../dist'),
+    // 打包后生成的文件名
+    filename: 'js/bundle.js'
   },
 
   // 配置module模块加载规则
