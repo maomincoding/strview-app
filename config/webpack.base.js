@@ -13,14 +13,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // 配置webpack的配置文件, 需要将配置的对象导出, 给webpack使用
 module.exports = {
   // 入口 entry, 从哪个文件开始打包
-  entry: './src/main.js',
+  entry: { index: './src/main.js', methods: './src/methods/index.js' },
 
   // 出口 output, 打包到哪里去
   output: {
-    // 打包输出的目录 (输出的目录必须是一个绝对路径)
-    path: path.join(__dirname, '../dist'),
-    // 打包后生成的文件名
-    filename: 'js/bundle.js'
+    // // 打包输出的目录 (输出的目录必须是一个绝对路径)
+    // path: path.join(__dirname, '../dist'),
+    // // 打包后生成的文件名
+    // filename: 'js/bundle.js'
+    
+    // 修改输出路径和文件名，[name]是动态的，读取entry的属性
+    path: path.join(__dirname, "../dist"),
+    filename: "js/[name].bundle.js"
   },
 
   // 配置module模块加载规则
@@ -40,7 +44,7 @@ module.exports = {
             options: {
               publicPath: '../',
             },
-          }, 
+          },
           'css-loader'
         ]
       },
@@ -82,11 +86,11 @@ module.exports = {
   // 配置插件
   plugins: [
     // // 自动生成 html 的插件
-    new HtmlWebpackPlugin({ template: './public/index.html' ,filename:'index.html'},  ),
+    new HtmlWebpackPlugin({ template: './public/index.html', filename: 'index.html' },),
 
     // 分离css的插件, 定义打包好的文件的存放路径和文件名
-    new MiniCssExtractPlugin({ 
-      filename:'css/index.css'
+    new MiniCssExtractPlugin({
+      filename: 'css/index.css'
     }),
 
     // 清除dist目录的插件

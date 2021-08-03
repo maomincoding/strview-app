@@ -6,6 +6,8 @@ class Strview {
         this._oHtml = [];
         this._el = v.el;
         this._data = v.data;
+        // this._means = v.means;
+        // this._means().outTxt.call(this);
         this._template = v.template;
         this._sourceTemplate = v.template;
         document.querySelector(v.el).insertAdjacentHTML("beforeEnd", this.render());
