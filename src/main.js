@@ -9,7 +9,7 @@ new strview({
     a: "Hello",
     b: 18,
     name: "maomin",
-    age: 1,
+    age: 9,
     msg: 'Strview'
   },
   template: template1

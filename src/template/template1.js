@@ -10,6 +10,7 @@ const template1 = `
     </ul>
     <p class="txt">{a}，（a会改变）</p>
     <p class="txt">{b}，（b会改变）</p>
+    <input value="{msg}"></input>
     </div>
     
     <template id="my-paragraph">
