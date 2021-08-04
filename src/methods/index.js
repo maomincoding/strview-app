@@ -1,9 +1,8 @@
-import { useState, _data } from '../strview'
+import { reactive } from '../strview'
 
 function use1() {
-    // useState().a = 1;
-    // useState().b = 9;
-    useState().obj.a.b = 3;
+    // reactive().obj.a.b = 3;
+    reactive().arr.push(1);
 }
 
 export {

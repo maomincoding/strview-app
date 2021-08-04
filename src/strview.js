@@ -23,7 +23,7 @@ function eventListener(el, event, cb) {
 }
 
 // Change state
-function useState() {
+function ref() {
     return new Proxy(_data, {
         get: (target, key) => {
             return target[key]
@@ -36,42 +36,23 @@ function useState() {
     })
 }
 
-
-function deepProxy(obj, cb) {
-
-    if (typeof obj === "object") {
-
-        for (let key in obj) {
-            if (typeof obj[key] === "object") {
-                obj[key] = deepProxy(obj[key], cb);
-            }
+const reactiveHandlers = {
+    get(target, key) {
+        if (typeof target[key] === 'object' && target[key] !== null) {
+            return new Proxy(target[key], reactiveHandlers);
         }
-
+        return Reflect.get(target, key);
+    },
+    set(target, key, value) {
+        Reflect.set(target, key, value);
+        setTemplate();
+        return true
     }
+}
 
-    return new Proxy(obj, {
-        set: (target, key, value, receiver) => {
-
-            if (typeof value === "object") {
-                value = deepProxy(value, cb);
-            }
-
-            let cbType = target[key] == undefined ? "create" : "modify";
-
-            //排除数组修改length回调
-            if (!(Array.isArray(target) && key === "length")) {
-                cb(cbType, { target, key, value });
-            }
-            return Reflect.set(target, key, value, receiver);
-
-        },
-        deleteProperty(target, key) {
-            cb("delete", { target, key });
-            return Reflect.deleteProperty(target, key);
-        }
-
-    });
-
+// Change states
+function reactive() {
+    return new Proxy(_data, reactiveHandlers)
 }
 
 // update the view
@@ -80,7 +61,6 @@ function setTemplate() {
     const nNode = toHtml(render(_sourceTemplate, 1));
     compile(oNode, 'o');
     compile(nNode, 'n');
-    console.log(_data)
     if (_oHtml.length === _nHtml.length) {
         for (let index = 0; index < _oHtml.length; index++) {
             const element = _oHtml[index];
@@ -134,11 +114,10 @@ function render(template, type) {
     if (type === 1) {
         if (reg.test(template)) {
             const key = reg.exec(template)[1];
-            console.log(key)
             if (_data.hasOwnProperty(key)) {
                 template = template.replace(reg, _data[key]);
             } else {
-
+                console.log(_data)
                 const str = `_data.${key}`;
                 template = template.replace(reg, eval(str));
             }
@@ -165,12 +144,11 @@ function render(template, type) {
 export {
     createView,
     eventListener,
-    useState,
+    ref,
     setTemplate,
     isTextNode,
     compile,
     toHtml,
     render,
-    _data,
-    deepProxy
+    reactive
 }
