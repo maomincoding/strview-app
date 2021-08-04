@@ -1,4 +1,4 @@
-import { createView, eventListener } from 'strview';
+import { createView, eventListener } from './strview';
 import './webComponent';
 import template1 from './template/template1';
 import { use1 } from './methods/index';
@@ -10,7 +10,12 @@ createView({
     b: 18,
     name: "maomin",
     age: 9,
-    msg: 'Strview'
+    msg: 'Strview',
+    obj: {
+      a: {
+        b: 1
+      }
+    }
   },
   template: template1
 });

@@ -11,6 +11,7 @@ const template1 = `
     <p class="txt">{a}，（a会改变）</p>
     <p class="txt">{b}，（b会改变）</p>
     <input value="{msg}"></input>
+    <p>{obj.a.b}</p>
     </div>
     
     <template id="my-paragraph">
