@@ -30,56 +30,49 @@ function useState() {
         },
         set: (target, key, newValue) => {
             target[key] = newValue;
-            setTemplate(key);
+            setTemplate();
             return true;
         }
     })
 }
-// function useState(obj) {
-//     if (typeof obj === 'object') {
 
-//         for (let key in obj) {
-//             if (typeof obj[key] === 'object') {
-//                 obj[key] = deepProxy(obj[key]);
-//             }
-//         }
 
-//     }
-//     return new Proxy(obj, {
+function deepProxy(obj, cb) {
 
-//         /**
-//          * @param {Object, Array} target 设置值的对象
-//          * @param {String} key 属性
-//          * @param {any} value 值
-//          * @param {Object} receiver this
-//          */
-//         set: (target, key, value, receiver) => {
+    if (typeof obj === "object") {
 
-//             if (typeof value === 'object') {
-//                 value = deepProxy(value);
-//             }
-//             setTemplate(key);
-//             // let cbType = target[key] == undefined ? 'create' : 'modify';
+        for (let key in obj) {
+            if (typeof obj[key] === "object") {
+                obj[key] = deepProxy(obj[key], cb);
+            }
+        }
 
-//             //排除数组修改length回调
-//             // if (!(Array.isArray(target) && key === 'length')) {
-//             //     cb(cbType, { target, key, value });
-//             // }
-//             return Reflect.set(target, key, value, receiver);
+    }
 
-//         },
-//         get: (target, key) => {
-//             return target[key]
-//         },
-//         deleteProperty(target, key) {
-//             // cb('delete', { target, key });
-//             return Reflect.deleteProperty(target, key);
-//         }
+    return new Proxy(obj, {
+        set: (target, key, value, receiver) => {
 
-//     });
+            if (typeof value === "object") {
+                value = deepProxy(value, cb);
+            }
 
-// }
+            let cbType = target[key] == undefined ? "create" : "modify";
 
+            //排除数组修改length回调
+            if (!(Array.isArray(target) && key === "length")) {
+                cb(cbType, { target, key, value });
+            }
+            return Reflect.set(target, key, value, receiver);
+
+        },
+        deleteProperty(target, key) {
+            cb("delete", { target, key });
+            return Reflect.deleteProperty(target, key);
+        }
+
+    });
+
+}
 
 // update the view
 function setTemplate() {
@@ -87,6 +80,7 @@ function setTemplate() {
     const nNode = toHtml(render(_sourceTemplate, 1));
     compile(oNode, 'o');
     compile(nNode, 'n');
+    console.log(_data)
     if (_oHtml.length === _nHtml.length) {
         for (let index = 0; index < _oHtml.length; index++) {
             const element = _oHtml[index];
@@ -129,26 +123,38 @@ function toHtml(domStr) {
     return parser.parseFromString(domStr, "text/html");
 }
 
+// type detection
+function getType(v) {
+    return Object.prototype.toString.call(v).match(/\[object (.+?)\]/)[1].toLowerCase();
+}
+
 // template engine
 function render(template, type) {
-    const reg = /\{(.+?)\}/;
+    const reg = /\{(.+?)\}/;;
     if (type === 1) {
         if (reg.test(template)) {
-            const name = reg.exec(template)[1];
-            template = template.replace(reg, _data[name]);
-            return render(template);
+            const key = reg.exec(template)[1];
+            console.log(key)
+            if (_data.hasOwnProperty(key)) {
+                template = template.replace(reg, _data[key]);
+            } else {
+
+                const str = `_data.${key}`;
+                template = template.replace(reg, eval(str));
+            }
+            return render(template, 1);
         }
         return template;
     } else {
         if (reg.test(_template)) {
-            const name = reg.exec(_template)[1];
-            if (_data.hasOwnProperty(name)) {
-                _template = _template.replace(reg, _data[name]);
-                return render(_template);
+            const key = reg.exec(_template)[1];
+            if (_data.hasOwnProperty(key)) {
+                _template = _template.replace(reg, _data[key]);
             } else {
-                const str = `_data.${name}`;
+                const str = `_data.${key}`;
                 _template = _template.replace(reg, eval(str));
             }
+            return render(_template);
         }
         return _template;
     }
@@ -164,5 +170,7 @@ export {
     isTextNode,
     compile,
     toHtml,
-    render
+    render,
+    _data,
+    deepProxy
 }

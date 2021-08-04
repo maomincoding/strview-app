@@ -11,6 +11,7 @@ createView({
     name: "maomin",
     age: 9,
     msg: 'Strview',
+    arr: ['1'],
     obj: {
       a: {
         b: 1
