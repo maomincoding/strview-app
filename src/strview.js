@@ -36,16 +36,18 @@ function ref() {
     })
 }
 
+const onceSetTemplate = once(setTemplate);
+
 const reactiveHandlers = {
-    get(target, key) {
+    get: (target, key) => {
         if (typeof target[key] === 'object' && target[key] !== null) {
             return new Proxy(target[key], reactiveHandlers);
         }
         return Reflect.get(target, key);
     },
-    set(target, key, value) {
+    set: (target, key, value) => {
         Reflect.set(target, key, value);
-        setTemplate();
+        onceSetTemplate();
         return true
     }
 }
@@ -58,6 +60,7 @@ function reactive() {
 // update the view
 function setTemplate() {
     const oNode = document.querySelector(_el);
+    console.log(1)
     const nNode = toHtml(render(_sourceTemplate, 1));
     compile(oNode, 'o');
     compile(nNode, 'n');
@@ -107,6 +110,15 @@ function toHtml(domStr) {
 function getType(v) {
     return Object.prototype.toString.call(v).match(/\[object (.+?)\]/)[1].toLowerCase();
 }
+function once(fn) {
+    let called = false;
+    return function () {
+        if (!called) {
+            called = true
+            fn.apply(this, arguments)
+        }
+    }
+}
 
 // template engine
 function render(template, type) {
@@ -117,7 +129,6 @@ function render(template, type) {
             if (_data.hasOwnProperty(key)) {
                 template = template.replace(reg, _data[key]);
             } else {
-                console.log(_data)
                 const str = `_data.${key}`;
                 template = template.replace(reg, eval(str));
             }

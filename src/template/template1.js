@@ -12,7 +12,7 @@ const template1 = `
     <p class="txt">{b}，（b会改变）</p>
     <input value="{msg}"></input>
     <p>{obj.a.b}</p>
-    <p>{arr[0]}</p>
+    <p>{arr}</p>
     </div>
     
     <template id="my-paragraph">
