@@ -6,8 +6,8 @@
   "author": "maomincoding <17864296568@163.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config config/webpack.pro.js",
-    "dev": "webpack-dev-server --config config/webpack.dev.js"
+    "start": "webpack-dev-server --config config/webpack.dev.js",
+    "build": "webpack --config config/webpack.pro.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
