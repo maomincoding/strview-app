@@ -1,4 +1,4 @@
-import { createView, eventListener } from './strview/strview.esm-browser';
+import { createView, eventListener } from 'strview';
 import './webComponent/main';
 import template1 from './template/template1';
 import { use1 } from './methods/index';

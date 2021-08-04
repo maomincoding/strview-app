@@ -24,5 +24,8 @@
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "5.1.1"
+  },
+  "dependencies": {
+    "strview": "^1.2.0"
   }
 }

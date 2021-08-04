@@ -1,4 +1,4 @@
-import { useState } from '../strview/strview.esm-browser'
+import { useState } from 'strview'
 
 function use1() {
     useState().a = 1;
