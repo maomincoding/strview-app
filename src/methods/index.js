@@ -1,4 +1,4 @@
-import { reactive, ref } from '../strview'
+import { reactive, ref } from 'strview'
 
 function executes() {
     reactive().obj.a.b = 3;

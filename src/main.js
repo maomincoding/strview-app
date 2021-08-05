@@ -1,4 +1,4 @@
-import { createView, eventListener } from './strview';
+import { createView, eventListener } from 'strview';
 import data from './data';
 import App from './App';
 import { executes } from './methods';
