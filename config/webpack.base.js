@@ -13,7 +13,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // 配置webpack的配置文件, 需要将配置的对象导出, 给webpack使用
 module.exports = {
   // 入口 entry, 从哪个文件开始打包
-  entry:'./src/main.js',
+  entry: './src/main.js',
   // 出口 output, 打包到哪里去
   output: {
     // 打包输出的目录 (输出的目录必须是一个绝对路径)
@@ -102,7 +102,7 @@ module.exports = {
   // 配置插件
   plugins: [
     // // 自动生成 html 的插件
-    new HtmlWebpackPlugin({ template: './public/index.html', filename: 'index.html' },),
+    new HtmlWebpackPlugin({ template: './public/index.html', filename: 'index.html', title: 'Strview.js', favicon: 'public/favicon.ico' },),
 
     // 分离css的插件, 定义打包好的文件的存放路径和文件名
     new MiniCssExtractPlugin({
