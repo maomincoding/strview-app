@@ -1,5 +1,4 @@
 import { createView, eventListener } from './strview';
-import './webComponent';
 import template1 from './template/template1';
 import { use1 } from './methods/index';
 
