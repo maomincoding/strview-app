@@ -56,7 +56,7 @@ module.exports = {
               // 配置输出的文件名
               name: '[name].[ext]',
               // 配置静态资源的引用路径
-              publicPath: "../images/",
+              publicPath: "images/",
               // 配置输出的文件目录
               outputPath: "images/"
             }
@@ -102,7 +102,7 @@ module.exports = {
   // 配置插件
   plugins: [
     // // 自动生成 html 的插件
-    new HtmlWebpackPlugin({ template: './public/index.html', filename: 'index.html', title: 'Strview.js', favicon: 'public/favicon.ico' },),
+    new HtmlWebpackPlugin({ template: './public/index.html', filename: 'index.html', title: 'Strview.js', favicon: './public/favicon.ico' },),
 
     // 分离css的插件, 定义打包好的文件的存放路径和文件名
     new MiniCssExtractPlugin({
