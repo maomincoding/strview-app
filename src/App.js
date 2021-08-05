@@ -1,4 +1,5 @@
 import myParagraph from './components/myParagraph';
+import card from './components/card';
 import helloTemplate from './template/helloTemplate';
 import './style/index.css';
 
@@ -7,7 +8,7 @@ ${helloTemplate}
 <div class="content">
     <button class="color-red">点击</button>
     <p class="txt">{a}，{b}，（a和b都改变）</p>
-    <ul>
+    <ul class="list">
       <li>{age}</li>
       <li>{name}</li>
       <li>{msg}</li>
@@ -19,6 +20,7 @@ ${helloTemplate}
     <p>{arr}</p>
 </div>
 ${myParagraph}
+${card}<my-card><span slot="my-card-txt">{b}</span></my-card>
 `
 
 export default App
