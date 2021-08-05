@@ -1,7 +1,7 @@
 import { createView, eventListener } from './strview';
 import data from './data';
 import App from './App';
-import { useFun } from './methods';
+import { executes } from './methods';
 
 createView({
   el: "#app",
@@ -9,5 +9,5 @@ createView({
   template: App
 });
 
-eventListener('.color-red', 'click', useFun);
+eventListener('.color-red', 'click', executes);
 

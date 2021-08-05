@@ -1,9 +1,9 @@
 import { reactive } from '../strview'
 
-function useFun() {
+function executes() {
     reactive().obj.a.b = 3;
 }
 
 export {
-    useFun
+    executes
 }

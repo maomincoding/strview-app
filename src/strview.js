@@ -14,7 +14,7 @@ function createView(v) {
     _template = v.template;
     _sourceTemplate = v.template;
     _el = v.el;
-    document.querySelector(v.el).insertAdjacentHTML("beforeEnd", render());
+    document.querySelector(v.el).insertAdjacentHTML("beforeEnd", render(_template));
 }
 
 // event listeners
@@ -22,7 +22,7 @@ function eventListener(el, event, cb) {
     document.querySelector(el).addEventListener(event, cb);
 }
 
-// Change state
+// change state
 function ref() {
     return new Proxy(_data, {
         get: (target, key) => {
@@ -36,8 +36,10 @@ function ref() {
     })
 }
 
+// once
 const onceSetTemplate = once(setTemplate);
 
+// reactiveHandlers
 const reactiveHandlers = {
     get: (target, key) => {
         if (typeof target[key] === 'object' && target[key] !== null) {
@@ -52,7 +54,7 @@ const reactiveHandlers = {
     }
 }
 
-// Change states
+// change states
 function reactive() {
     return new Proxy(_data, reactiveHandlers)
 }
@@ -60,8 +62,7 @@ function reactive() {
 // update the view
 function setTemplate() {
     const oNode = document.querySelector(_el);
-    console.log(1)
-    const nNode = toHtml(render(_sourceTemplate, 1));
+    const nNode = toHtml(render(_sourceTemplate, true));
     compile(oNode, 'o');
     compile(nNode, 'n');
     if (_oHtml.length === _nHtml.length) {
@@ -72,35 +73,37 @@ function setTemplate() {
     }
 }
 
-// Judge text node
+// judge text node
 function isTextNode(node) {
     return node.nodeType === 3;
 }
 
-// Compile DOM
+// compile DOM
 function compile(node, type) {
     if (type === 'o') {
-        let ochildNodes = node.childNodes;
-        Array.from(ochildNodes).forEach((item) => {
+        const ochildNodes = node.childNodes;
+        for (let index = 0; index < Array.from(ochildNodes).length; index++) {
+            const item = Array.from(ochildNodes)[index];
             if (item.childNodes && item.childNodes.length) {
                 compile(item, 'o');
             } else if (isTextNode(item) && item.textContent.trim().length !== 0) {
                 _oHtml.push(item);
             }
-        })
+        }
     } else if (type === 'n') {
-        let nchildNodes = node.childNodes;
-        Array.from(nchildNodes).forEach(item => {
+        const nchildNodes = node.childNodes;
+        for (let index = 0; index < Array.from(nchildNodes).length; index++) {
+            const item = Array.from(nchildNodes)[index];
             if (item.childNodes && item.childNodes.length) {
                 compile(item, 'n');
             } else if (isTextNode(item) && item.textContent.trim().length !== 0) {
                 _nHtml.push(item);
             }
-        })
+        }
     }
 }
 
-// String to DOM
+// string to DOM
 function toHtml(domStr) {
     const parser = new DOMParser();
     return parser.parseFromString(domStr, "text/html");
@@ -110,6 +113,8 @@ function toHtml(domStr) {
 function getType(v) {
     return Object.prototype.toString.call(v).match(/\[object (.+?)\]/)[1].toLowerCase();
 }
+
+// The function executes once
 function once(fn) {
     let called = false;
     return function () {
@@ -121,34 +126,18 @@ function once(fn) {
 }
 
 // template engine
-function render(template, type) {
+function render(tem, type) {
     const reg = /\{(.+?)\}/;;
-    if (type === 1) {
-        if (reg.test(template)) {
-            const key = reg.exec(template)[1];
-            if (_data.hasOwnProperty(key)) {
-                template = template.replace(reg, _data[key]);
-            } else {
-                const str = `_data.${key}`;
-                template = template.replace(reg, eval(str));
-            }
-            return render(template, 1);
+    if (reg.test(tem)) {
+        const key = reg.exec(tem)[1];
+        _data.hasOwnProperty(key) ? tem = tem.replace(reg, _data[key]) : (tem = tem.replace(reg, eval(`_data.${key}`)));
+        if (type) {
+            return (render(tem, true))
+        } else {
+            return (render(tem))
         }
-        return template;
-    } else {
-        if (reg.test(_template)) {
-            const key = reg.exec(_template)[1];
-            if (_data.hasOwnProperty(key)) {
-                _template = _template.replace(reg, _data[key]);
-            } else {
-                const str = `_data.${key}`;
-                _template = _template.replace(reg, eval(str));
-            }
-            return render(_template);
-        }
-        return _template;
     }
-
+    return tem
 }
 
 // export
@@ -156,10 +145,5 @@ export {
     createView,
     eventListener,
     ref,
-    setTemplate,
-    isTextNode,
-    compile,
-    toHtml,
-    render,
     reactive
 }
