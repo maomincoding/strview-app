@@ -5,9 +5,10 @@ import { executes } from './methods';
 
 createView({
   el: "#app",
-  data,
-  template: App
+  template: App,
+  data
 });
 
+// The event is handled after the createview API
 eventListener('.color-red', 'click', executes);
 
