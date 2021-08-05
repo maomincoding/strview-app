@@ -1,6 +1,7 @@
-import myParagraph from '../webComponent/myParagraph';
+import myParagraph from './components/myParagraph';
+import helloTemplate from './template/helloTemplate';
 
-const template1 = `
+const App = `
 <div class="content">
     <button class="color-red">点击</button>
     <p class="txt">{a}，{b}，（a和b都改变）</p>
@@ -15,7 +16,8 @@ const template1 = `
     <p>{obj.a.b}</p>
     <p>{arr}</p>
     </div>
+    ${helloTemplate}
     ${myParagraph}
 `
 
-export default template1
+export default App

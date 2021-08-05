@@ -1,24 +1,13 @@
 import { createView, eventListener } from './strview';
-import template1 from './template/template1';
-import { use1 } from './methods/index';
+import data from './data';
+import App from './App';
+import { useFun } from './methods';
 
 createView({
   el: "#app",
-  data: {
-    a: "Hello",
-    b: 18,
-    name: "maomin",
-    age: 9,
-    msg: 'Strview',
-    arr: ['0'],
-    obj: {
-      a: {
-        b: 1
-      }
-    }
-  },
-  template: template1
+  data,
+  template: App
 });
 
-eventListener('.color-red', 'click', use1);
+eventListener('.color-red', 'click', useFun);
 
