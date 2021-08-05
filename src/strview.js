@@ -22,7 +22,7 @@ function eventListener(el, event, cb) {
     document.querySelector(el).addEventListener(event, cb);
 }
 
-// change state
+// Change state
 function ref() {
     return new Proxy(_data, {
         get: (target, key) => {
@@ -35,7 +35,6 @@ function ref() {
         }
     })
 }
-
 // once
 const onceSetTemplate = once(setTemplate);
 
@@ -80,25 +79,13 @@ function isTextNode(node) {
 
 // compile DOM
 function compile(node, type) {
-    if (type === 'o') {
-        const ochildNodes = node.childNodes;
-        for (let index = 0; index < Array.from(ochildNodes).length; index++) {
-            const item = Array.from(ochildNodes)[index];
-            if (item.childNodes && item.childNodes.length) {
-                compile(item, 'o');
-            } else if (isTextNode(item) && item.textContent.trim().length !== 0) {
-                _oHtml.push(item);
-            }
-        }
-    } else if (type === 'n') {
-        const nchildNodes = node.childNodes;
-        for (let index = 0; index < Array.from(nchildNodes).length; index++) {
-            const item = Array.from(nchildNodes)[index];
-            if (item.childNodes && item.childNodes.length) {
-                compile(item, 'n');
-            } else if (isTextNode(item) && item.textContent.trim().length !== 0) {
-                _nHtml.push(item);
-            }
+    const childNodesArr = node.childNodes;
+    for (let index = 0; index < Array.from(childNodesArr).length; index++) {
+        const item = Array.from(childNodesArr)[index];
+        if (item.childNodes && item.childNodes.length) {
+            compile(item, type);
+        } else if (isTextNode(item) && item.textContent.trim().length !== 0) {
+            type === 'o' ? _oHtml.push(item) : _nHtml.push(item);
         }
     }
 }
@@ -126,24 +113,32 @@ function once(fn) {
 }
 
 // template engine
-function render(tem, type) {
+function render(template, type) {
     const reg = /\{(.+?)\}/;;
-    if (reg.test(tem)) {
-        const key = reg.exec(tem)[1];
-        _data.hasOwnProperty(key) ? tem = tem.replace(reg, _data[key]) : (tem = tem.replace(reg, eval(`_data.${key}`)));
-        if (type) {
-            return (render(tem, true))
+    if (reg.test(template)) {
+        const key = reg.exec(template)[1];
+
+        if (_data.hasOwnProperty(key)) {
+            template = template.replace(reg, _data[key]);
         } else {
-            return (render(tem))
+            template = template.replace(reg, eval(`_data.${key}`));
+        }
+
+        if (type) {
+            return render(template, true)
+        } else {
+            return render(template)
         }
     }
-    return tem
+
+    return template;
 }
 
 // export
 export {
     createView,
     eventListener,
-    ref,
-    reactive
+    getType,
+    reactive,
+    ref
 }
