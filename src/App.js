@@ -1,7 +1,9 @@
 import myParagraph from './components/myParagraph';
 import helloTemplate from './template/helloTemplate';
+import './style/index.css';
 
 const App = `
+${helloTemplate}
 <div class="content">
     <button class="color-red">点击</button>
     <p class="txt">{a}，{b}，（a和b都改变）</p>
@@ -15,9 +17,8 @@ const App = `
     <input value="{msg}"></input>
     <p>{obj.a.b}</p>
     <p>{arr}</p>
-    </div>
-    ${helloTemplate}
-    ${myParagraph}
+</div>
+${myParagraph}
 `
 
 export default App
