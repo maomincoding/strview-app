@@ -1,5 +1,5 @@
 # strviewCLI
-![strview.js]('https://github.com/maomincoding/strviewCLI/blob/master/src/assets/logo.png')
+![strview.js](https://github.com/maomincoding/strviewCLI/blob/master/src/assets/logo.png)
 
 **strviewCLI** is a scaffolding tool for `strview.js` based on `webpack`.
 
