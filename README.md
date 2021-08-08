@@ -1,10 +1,10 @@
 # strviewCLI
 
-## 介绍
+## introduce
 
-**strviewCLI**是基于`webpack`搭建的一款应用于`strview.js`的脚手架工具。
+**strviewCLI** is a scaffolding tool for `strview.js` based on `webpack`.
 
-## 安装
+## Install
 
 ```bash
 npm install
@@ -14,7 +14,7 @@ or
 yarn install
 ```
 
-## 运行
+## Start up
 
 ```bash
 npm run start
@@ -24,7 +24,7 @@ or
 yarn start
 ```
 
-## 部署
+## Build
 
 ```bash
 npm run build
