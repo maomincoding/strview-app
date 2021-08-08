@@ -4,6 +4,10 @@
 
 **strviewCLI** is a scaffolding tool for `strview.js` based on `webpack`.
 
+```
+https://github.com/maomincoding/strview.git
+```
+
 ## Install
 
 ```bash
