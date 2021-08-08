@@ -1,9 +1,9 @@
 # strviewCLI
-
-## introduce
-
 **strviewCLI** is a scaffolding tool for `strview.js` based on `webpack`.
 
+## About
+
+You can click on the link below to learn about `strview.js`.
 ```
 https://github.com/maomincoding/strview.git
 ```
@@ -37,3 +37,9 @@ or
 ```bash
 yarn build
 ```
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2021-present, maomincoding
