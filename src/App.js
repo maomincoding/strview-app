@@ -18,6 +18,7 @@ ${helloTemplate}
     <input value="{msg}"></input>
     <p>{obj.a.b}</p>
     <p>{arr}</p>
+    <p>{ob.name}</p>
 </div>
 ${myParagraph}
 ${card}<my-card><span slot="my-card-txt">{b}</span></my-card>

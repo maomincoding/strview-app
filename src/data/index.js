@@ -1,3 +1,4 @@
+import ob from './ob';
 export default {
     a: "Hello",
     b: 18,
@@ -9,6 +10,6 @@ export default {
         a: {
             b: 1
         }
-    }
-
+    },
+    ob
 }
