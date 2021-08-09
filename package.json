@@ -26,6 +26,6 @@
     "webpack-merge": "5.1.1"
   },
   "dependencies": {
-    "strview": "^1.6.5"
+    "strview": "^1.7.5"
   }
 }
