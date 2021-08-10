@@ -1,7 +1,15 @@
-# strviewCLI
+# strviewApp
 ![strview.js](https://www.maomin.club/data/strview/logo.png)
 
 Project framework based on strview.js.
+## Get started
+You can use strview cli as a scaffolding tool to install strviewApp.
+```shell
+npm install strview-cli -g
+```
+```shell
+strview-cli init <projectName>
+```
 
 ## About
 
