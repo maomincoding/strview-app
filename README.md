@@ -1,7 +1,7 @@
 # strviewCLI
 ![strview.js](https://www.maomin.club/data/strview/logo.png)
 
-**strviewCLI** is a scaffolding tool for `strview.js` based on `webpack`.
+Project framework based on strview.js.
 
 ## About
 

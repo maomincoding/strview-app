@@ -1,8 +1,9 @@
 {
-  "name": "strview-cli",
+  "name": "strview-app",
+  "description": "Project framework based on strview.js",
   "version": "1.0.0",
   "main": "./src/main.js",
-  "repository": "https://github.com/maomincoding/strviewCLI.git",
+  "repository": "https://github.com/maomincoding/strview-app.git",
   "author": "maomincoding <17864296568@163.com>",
   "license": "MIT",
   "scripts": {
